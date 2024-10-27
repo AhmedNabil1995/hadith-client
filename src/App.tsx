@@ -125,8 +125,8 @@ const App = () => {
       {renderScreen()}
       <BottomNav setCurrentScreen={setScreenState} />
 
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4  z-20">
-        <div className="bg-white rounded-lg w-full h-full max-w-md p-4">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-20">
+        <div className={`bg-white rounded-lg w-full h-full max-w-md p-4`}>
           <div className="flex flex-col justify-center h-full items-center mb-4">
             <div className="w-16 h-16 mb-4">
               <Book className="w-full h-full" />
@@ -144,38 +144,44 @@ const App = () => {
         </div>
       </div>
       <div
-        className={`fixed inset-x-0 bottom-0 transform ${
-          isDrawerOpen ? "translate-y-0" : "translate-y-full"
-        } transition-transform duration-300 ease-in-out  z-30`}
+        className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-30 ${
+          isDrawerOpen ? "block" : "hidden"
+        }`}
       >
-        <div className="bg-white rounded-t-xl p-4 shadow-lg">
-          <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="العنوان"
-              value={noteTitle}
-              onChange={(e) => setNoteTitle(e.target.value)}
-              className="w-full p-2 border rounded-lg text-right"
-            />
-            <textarea
-              placeholder="التفاصيل"
-              value={noteDetails}
-              onChange={(e) => setNoteDetails(e.target.value)}
-              className="w-full p-2 border rounded-lg h-32 text-right"
-            />
-            <div className="flex gap-2">
-              <button
-                onClick={handleAddNote}
-                className="flex-1 bg-amber-500 text-white py-2 rounded-lg"
-              >
-                إضافة
-              </button>
-              <button
-                onClick={() => setIsDrawerOpen(false)}
-                className="flex-1 py-2 border rounded-lg"
-              >
-                إلغاء
-              </button>
+        <div
+          className={`fixed inset-x-0 bottom-0 transform ${
+            isDrawerOpen ? "translate-y-0" : "translate-y-full"
+          } transition-transform duration-300 ease-in-out`}
+        >
+          <div className="bg-white rounded-t-xl p-4 shadow-lg">
+            <div className="space-y-4">
+              <input
+                type="text"
+                placeholder="العنوان"
+                value={noteTitle}
+                onChange={(e) => setNoteTitle(e.target.value)}
+                className="w-full p-2 border rounded-lg text-right"
+              />
+              <textarea
+                placeholder="التفاصيل"
+                value={noteDetails}
+                onChange={(e) => setNoteDetails(e.target.value)}
+                className="w-full p-2 border rounded-lg h-32 text-right"
+              />
+              <div className="flex gap-2">
+                <button
+                  onClick={handleAddNote}
+                  className="flex-1 bg-amber-500 text-white py-2 rounded-lg"
+                >
+                  إضافة
+                </button>
+                <button
+                  onClick={() => setIsDrawerOpen(false)}
+                  className="flex-1 py-2 border rounded-lg"
+                >
+                  إلغاء
+                </button>
+              </div>
             </div>
           </div>
         </div>
