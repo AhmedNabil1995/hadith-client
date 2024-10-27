@@ -8,6 +8,7 @@ import SettingsScreen from "./screens/Settings";
 import Header from "./components/Header";
 import BottomNav from "./components/BottomNav";
 import HadithScreen from "./screens/Hadith";
+import { Book } from "lucide-react";
 
 interface ScreenI {
   name: string;
@@ -26,6 +27,18 @@ const App = () => {
   });
 
   const [history, setHistory] = useState<ScreenI[]>([]);
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [showNoteDialog, setShowNoteDialog] = useState(false);
+  const [noteTitle, setNoteTitle] = useState("");
+  const [noteDetails, setNoteDetails] = useState("");
+
+  const handleAddNote = () => {
+    // Add note logic here
+    setNoteTitle("");
+    setNoteDetails("");
+    setIsDrawerOpen(false);
+  };
 
   const navigateTo = (screenName: string, params: any = {}) => {
     setHistory((prev) => [...prev, screenState]);
@@ -111,6 +124,62 @@ const App = () => {
       />
       {renderScreen()}
       <BottomNav setCurrentScreen={setScreenState} />
+
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4  z-20">
+        <div className="bg-white rounded-lg w-full h-full max-w-md p-4">
+          <div className="flex flex-col justify-center h-full items-center mb-4">
+            <div className="w-16 h-16 mb-4">
+              <Book className="w-full h-full" />
+            </div>
+            <p className="text-center text-sm">
+              عذراً ليس هناك أي ملاحظة على هذا الفصل
+            </p>
+            <button
+              onClick={() => setIsDrawerOpen(true)}
+              className="mt-4 bg-amber-500 text-white px-6 py-2 rounded-lg"
+            >
+              اضافة جديد
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        className={`fixed inset-x-0 bottom-0 transform ${
+          isDrawerOpen ? "translate-y-0" : "translate-y-full"
+        } transition-transform duration-300 ease-in-out  z-30`}
+      >
+        <div className="bg-white rounded-t-xl p-4 shadow-lg">
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="العنوان"
+              value={noteTitle}
+              onChange={(e) => setNoteTitle(e.target.value)}
+              className="w-full p-2 border rounded-lg text-right"
+            />
+            <textarea
+              placeholder="التفاصيل"
+              value={noteDetails}
+              onChange={(e) => setNoteDetails(e.target.value)}
+              className="w-full p-2 border rounded-lg h-32 text-right"
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={handleAddNote}
+                className="flex-1 bg-amber-500 text-white py-2 rounded-lg"
+              >
+                إضافة
+              </button>
+              <button
+                onClick={() => setIsDrawerOpen(false)}
+                className="flex-1 py-2 border rounded-lg"
+              >
+                إلغاء
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
