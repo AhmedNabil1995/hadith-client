@@ -7,9 +7,13 @@ interface HeaderProps {
       params: {};
     }>
   >;
+  setShowNoteDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BottomNav: React.FC<HeaderProps> = ({ setCurrentScreen }) => (
+const BottomNav: React.FC<HeaderProps> = ({
+  setCurrentScreen,
+  setShowNoteDialog,
+}) => (
   <div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t flex justify-around items-center">
     <button
       onClick={() => setCurrentScreen({ name: "maqsads", params: {} })}
@@ -28,6 +32,12 @@ const BottomNav: React.FC<HeaderProps> = ({ setCurrentScreen }) => (
       className="flex flex-col items-center"
     >
       <Settings className="h-6 w-6" />
+    </button>
+    <button
+      onClick={() => setShowNoteDialog(true)}
+      className="flex flex-col items-center"
+    >
+      notes
     </button>
   </div>
 );
