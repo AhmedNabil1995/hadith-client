@@ -19,6 +19,7 @@ interface ScreenI {
     bookId?: number;
     faslId?: number;
     categoryId?: number;
+    first_hadith_number?: number;
   };
 }
 
@@ -26,7 +27,7 @@ const App = () => {
   const [maqsads, setMaqsads] = useState<MaqsadI[]>([]);
 
   const fetchMaqsads = async () => {
-    const res = await axios.get("http://localhost:5000/api/hadiths/maqsads");
+    const res = await axios.get("http://192.168.1.4:5000/api/hadiths/maqsads");
     setMaqsads(res.data.maqsads || []);
   };
 
@@ -117,6 +118,7 @@ const App = () => {
             faslId={screenState.params.faslId}
             bookId={screenState.params.bookId}
             categoryId={screenState.params.categoryId}
+            firstHadith={screenState.params.first_hadith_number}
             onNavigate={navigateTo}
           />
         );

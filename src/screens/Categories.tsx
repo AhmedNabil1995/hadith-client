@@ -14,11 +14,11 @@ const CategoriesScreen: React.FC<CategoriesScreenProps> = ({
   onNavigate,
 }) => {
   const [categories, setCategories] = useState<
-    { category_name: string; category_id: number }[]
+    { category_name: string; category_id: number; hadith_no: number }[]
   >([]);
   const fetchCategories = async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/hadiths/categories/${bookId}`
+      `http://192.168.1.4:5000/api/hadiths/categories/${bookId}`
     );
     setCategories(res.data.categories || []);
   };
@@ -33,7 +33,10 @@ const CategoriesScreen: React.FC<CategoriesScreenProps> = ({
         <button
           key={category.category_id}
           onClick={() =>
-            onNavigate("hadiths", { categoryId: category.category_id })
+            onNavigate("hadiths", {
+              categoryId: category.category_id,
+              first_hadith_number: category.hadith_no,
+            })
           }
           className="bg-white rounded-lg shadow-md p-4 w-full text-right"
         >
