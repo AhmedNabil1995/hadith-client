@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Book } from "lucide-react";
+import axios from "axios";
 
 // Dummy data for demonstration
 const DUMMY_HADITHS = [
@@ -39,9 +40,26 @@ interface HadithScreenProps {
   onNavigate: (screenName: string, params: any) => void;
   bookId: number | undefined;
   faslId: number | undefined;
+  categoryId: number | undefined;
 }
 
-const HadithScreen: React.FC<HadithScreenProps> = () => {
+const HadithScreen: React.FC<HadithScreenProps> = ({
+  bookId,
+  faslId,
+  categoryId,
+}) => {
+  const [hadiths, setHadiths] = useState([]);
+  const fetchHadiths = async () => {
+    const res = await axios.get(`http://localhost:5000/api/hadiths`, {
+      params: { ketab_id: bookId, category_id: categoryId, fasl_id: faslId },
+    });
+    setHadiths(res.data.hadiths || []);
+  };
+
+  useEffect(() => {
+    fetchHadiths();
+  }, []);
+
   const [currentHadithIndex, setCurrentHadithIndex] = useState(0);
   const [showFootnotes, setShowFootnotes] = useState(false);
 

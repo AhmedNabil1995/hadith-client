@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MaqsadScreen from "./screens/Maqsad";
 import BooksScreen from "./screens/Book";
 import FaslsScreen from "./screens/Fasl";
@@ -9,6 +9,8 @@ import Header from "./components/Header";
 import BottomNav from "./components/BottomNav";
 import HadithScreen from "./screens/Hadith";
 import { Book } from "lucide-react";
+import axios from "axios";
+import { MaqsadI } from "./interfaces/Maqsad";
 
 interface ScreenI {
   name: string;
@@ -21,11 +23,21 @@ interface ScreenI {
 }
 
 const App = () => {
+  const [maqsads, setMaqsads] = useState<MaqsadI[]>([]);
+
+  const fetchMaqsads = async () => {
+    const res = await axios.get("http://localhost:5000/api/hadiths/maqsads");
+    setMaqsads(res.data.maqsads || []);
+  };
+
+  useEffect(() => {
+    fetchMaqsads();
+  }, []);
+
   const [screenState, setScreenState] = useState<ScreenI>({
     name: "maqsads",
     params: {},
   });
-
   const [history, setHistory] = useState<ScreenI[]>([]);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -75,12 +87,13 @@ const App = () => {
   const renderScreen = () => {
     switch (screenState.name) {
       case "maqsads":
-        return <MaqsadScreen onNavigate={navigateTo} />;
+        return <MaqsadScreen maqsads={maqsads} onNavigate={navigateTo} />;
       case "books":
         return (
           <BooksScreen
-            maqsadId={screenState.params.maqsadId}
+            maqsadId={screenState.params.maqsadId || 20}
             onNavigate={navigateTo}
+            maqsads={maqsads}
           />
         );
       case "fasls":
@@ -103,6 +116,7 @@ const App = () => {
           <HadithScreen
             faslId={screenState.params.faslId}
             bookId={screenState.params.bookId}
+            categoryId={screenState.params.categoryId}
             onNavigate={navigateTo}
           />
         );

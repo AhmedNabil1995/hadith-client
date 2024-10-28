@@ -1,28 +1,31 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { DUMMY_DATA } from "../data/dummyData";
+import { ChevronLeft } from "lucide-react";
+import { MaqsadI } from "../interfaces/Maqsad";
 
 interface BooksScreenProps {
   onNavigate: (screenName: string, params: any) => void;
-  maqsadId: number | undefined;
+  maqsadId: number;
+  maqsads: MaqsadI[];
 }
 
-const BooksScreen: React.FC<BooksScreenProps> = ({ maqsadId, onNavigate }) => {
-  const books = DUMMY_DATA.books.filter((book) => book.maqsadId === maqsadId);
-
+const BooksScreen: React.FC<BooksScreenProps> = ({
+  maqsadId,
+  onNavigate,
+  maqsads,
+}) => {
+  const books = maqsads.find((maqsad) => maqsad._id == maqsadId)?.ketab || [];
   return (
     <div className="flex flex-col gap-4 p-4 mt-16 mb-20">
       {books.map((book) => (
         <button
-          key={book.id}
+          key={book._id}
           onClick={() =>
-            onNavigate(book.hasFasl ? "fasls" : "categories", {
-              bookId: book.id,
-              faslId: null,
+            onNavigate("categories", {
+              bookId: book._id,
             })
           }
           className="bg-white rounded-lg shadow-md p-4 w-full text-right flex items-center justify-between"
         >
-          <span className="block text-lg font-semibold">{book.name}</span>
+          <span className="block text-lg font-semibold">{book.title}</span>
           <ChevronLeft className="h-6 w-6" />
         </button>
       ))}
