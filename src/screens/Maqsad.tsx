@@ -1,9 +1,10 @@
 import { Book } from "lucide-react";
 import { DUMMY_DATA } from "../data/dummyData";
 import { MaqsadI as MaqsadI } from "../interfaces/Maqsad";
+import { ScreenName, ScreenParams } from "../types";
 
 interface MaqsadScreenProps {
-  onNavigate: (screenName: string, params: any) => void;
+  onNavigate: (screenName: ScreenName, params: ScreenParams) => void;
   maqsads: MaqsadI[];
 }
 

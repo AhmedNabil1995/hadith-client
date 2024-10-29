@@ -1,8 +1,9 @@
 import { ChevronLeft } from "lucide-react";
 import { DUMMY_DATA } from "../data/dummyData";
+import { ScreenName, ScreenParams } from "../types";
 
 interface FaslScreenProps {
-  onNavigate: (screenName: string, params: any) => void;
+  onNavigate: (screenName: ScreenName, params: ScreenParams) => void;
   bookId: number | undefined;
 }
 

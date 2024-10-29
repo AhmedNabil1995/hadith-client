@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { DUMMY_DATA } from "../data/dummyData";
 import axios from "axios";
+import { ScreenName, ScreenParams } from "../types";
 
 interface CategoriesScreenProps {
-  onNavigate: (screenName: string, params: any) => void;
+  onNavigate: (screenName: ScreenName, params: ScreenParams) => void;
   bookId: number | undefined;
   faslId: number | undefined;
 }

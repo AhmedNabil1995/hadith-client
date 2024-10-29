@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Book } from "lucide-react";
 import axios from "axios";
+import { ScreenName, ScreenParams } from "../types";
 
 // Dummy data for demonstration
 
 interface HadithScreenProps {
-  onNavigate: (screenName: string, params: any) => void;
+  onNavigate: (screenName: ScreenName, params: ScreenParams) => void;
   bookId: number | undefined;
   faslId: number | undefined;
   categoryId: number | undefined;

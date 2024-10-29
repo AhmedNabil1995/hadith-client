@@ -7,7 +7,7 @@ interface HeaderProps {
       params: {};
     }>
   >;
-  setShowNoteDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowNoteDialog?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BottomNav: React.FC<HeaderProps> = ({

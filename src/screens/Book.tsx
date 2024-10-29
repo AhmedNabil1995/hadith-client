@@ -1,8 +1,9 @@
 import { ChevronLeft } from "lucide-react";
 import { MaqsadI } from "../interfaces/Maqsad";
+import { ScreenName, ScreenParams } from "../types";
 
 interface BooksScreenProps {
-  onNavigate: (screenName: string, params: any) => void;
+  onNavigate: (screenName: ScreenName, params: ScreenParams) => void;
   maqsadId: number;
   maqsads: MaqsadI[];
 }
