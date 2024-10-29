@@ -34,14 +34,23 @@ const HadithScreen: React.FC<HadithScreenProps> = ({
 
   const goToNextHadith = async () => {
     await fetchHadiths(hadiths[0].hadith_no + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const goToPrevHadith = async () => {
     await fetchHadiths(hadiths[0].hadith_no - 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  const footnotes = hadiths[hadiths.length - 1]?.footnotes || [];
   const takhreej = hadiths[hadiths.length - 1]?.takhreej;
 
+  const footnotes = hadiths.flatMap((hadith) => hadith.footnotes);
+
+  function parseTextWithLinks(text: string) {
+    return text.replace(/{\[(\d+)]}/g, (match, number) => {
+      const anchorLink = `#ref${number}`; // Link to anchor ID on the same page
+      return `<a href="${anchorLink}">${match}</a>`;
+    });
+  }
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 pt-16 pb-20">
       {/* Main Content */}
@@ -50,53 +59,65 @@ const HadithScreen: React.FC<HadithScreenProps> = ({
         <div className="bg-green-600 text-white p-3 rounded-t-lg text-right">
           <h2 className="text-lg font-bold">{hadiths?.[0]?.category_name}</h2>
         </div>
-
         {/* Hadith Card */}
         {hadiths.map((hadith: any, i: number) => (
-          <div className="bg-white rounded-b-lg shadow-lg p-6 mb-4" key={i}>
-            {/* Hadith Number */}
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-green-600 font-bold text-lg">
-                حديث رقم: {hadith.hadith_no}
-              </span>
-            </div>
+          <>
+            {" "}
+            <div className="bg-white rounded-b-lg shadow-lg p-6 mb-4" key={i}>
+              {/* Hadith Number */}
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-green-600 font-bold text-lg">
+                  حديث رقم: {hadith.hadith_no}
+                </span>
+              </div>
 
-            {/* Hadith Text */}
-            <div className="text-right mb-6 leading-relaxed text-lg">
-              {hadith.hadith_text}
-            </div>
+              {/* Hadith Text */}
+              <div
+                className="text-right mb-6 leading-relaxed text-lg"
+                dangerouslySetInnerHTML={{
+                  __html: parseTextWithLinks(hadith.hadith_text),
+                }}
+              ></div>
 
-            {/* Reference and Hukm */}
-            <div className="flex justify-between items-center text-sm border-t pt-4">
-              <span className="text-gray-600">{hadith.reference}</span>
-              <span className="text-green-600 font-semibold">
-                {hadith.hukm}
-              </span>
+              {/* Reference and Hukm */}
+              <div className="flex justify-between items-center text-sm border-t pt-4">
+                <span className="text-gray-600">{hadith.reference}</span>
+                <span className="text-green-600 font-semibold">
+                  {hadith.hukm}
+                </span>
+              </div>
             </div>
-          </div>
+          </>
         ))}
-
         {/* Footnotes Section */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mt-4">
-          <h3 className="text-right font-bold text-lg mb-3 text-green-600">
-            الشرح والفوائد
-          </h3>
-          <div className="text-right text-gray-700">
-            {footnotes.map((footnote: any, i: number) => (
-              <p key={i} className="mb-2">
-                {footnote.footnotes}
-              </p>
+        {(footnotes.length > 0 || takhreej) && (
+          <div className="bg-white rounded-lg shadow-lg p-6 mt-4  mb-4">
+            {footnotes.length > 0 && (
+              <h3 className="text-right font-bold text-lg mb-3 text-green-600">
+                الشرح والفوائد
+              </h3>
+            )}
+            {footnotes.map((footnote, i) => (
+              <div className="text-right text-gray-700">
+                <p key={i} className="mb-2" id={`ref${i}`}>
+                  {`{[${i + 1}]}`} {footnote.footnotes}
+                </p>
+              </div>
             ))}
+            {takhreej && (
+              <div
+                className={`${
+                  footnotes.length > 0 ? "mt-4 pt-4 border-t" : ""
+                }`}
+              >
+                <h4 className="text-right font-bold mb-2 text-green-600">
+                  التخريج
+                </h4>
+                <p className="text-right text-gray-700">{takhreej}</p>
+              </div>
+            )}
           </div>
-          {takhreej && (
-            <div className="mt-4 pt-4 border-t">
-              <h4 className="text-right font-bold mb-2 text-green-600">
-                التخريج
-              </h4>
-              <p className="text-right text-gray-700">{takhreej}</p>
-            </div>
-          )}
-        </div>
+        )}
       </div>
 
       {/* Navigation Arrows */}

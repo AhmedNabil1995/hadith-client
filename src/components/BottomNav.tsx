@@ -33,12 +33,6 @@ const BottomNav: React.FC<HeaderProps> = ({
     >
       <Settings className="h-6 w-6" />
     </button>
-    <button
-      onClick={() => setShowNoteDialog(true)}
-      className="flex flex-col items-center"
-    >
-      notes
-    </button>
   </div>
 );
 

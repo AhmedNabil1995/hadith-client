@@ -131,6 +131,22 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    // Push a dummy state to history to detect back action
+    window.history.pushState(null, "", window.location.href);
+
+    const handleBackButton = (event: PopStateEvent) => {
+      event.preventDefault();
+      goBack(); // Trigger custom navigation
+    };
+
+    // Add event listener to detect popstate
+    window.addEventListener("popstate", handleBackButton);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("popstate", handleBackButton);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Header
