@@ -19,7 +19,7 @@ const CategoriesScreen: React.FC<CategoriesScreenProps> = ({
   >([]);
   const fetchCategories = async () => {
     const res = await axios.get(
-      `http://192.168.1.4:5000/api/hadiths/categories/${bookId}`
+      `https://hadith-smoky.vercel.app/api/hadiths/categories/${bookId}`
     );
     setCategories(res.data.categories || []);
   };

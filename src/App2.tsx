@@ -14,7 +14,9 @@ const App2 = () => {
   const [maqsads, setMaqsads] = useState<MaqsadI[]>([]);
 
   const fetchMaqsads = async () => {
-    const res = await axios.get("http://192.168.1.4:5000/api/hadiths/maqsads");
+    const res = await axios.get(
+      "https://hadith-smoky.vercel.app/api/hadiths/maqsads"
+    );
     setMaqsads(res.data.maqsads || []);
   };
 

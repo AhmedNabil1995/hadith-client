@@ -21,7 +21,7 @@ const HadithScreen: React.FC<HadithScreenProps> = ({
 }) => {
   const [hadiths, setHadiths] = useState<any[]>([]);
   const fetchHadiths = async (hadith_no: number) => {
-    const res = await axios.get(`http://192.168.1.4:5000/api/hadiths`, {
+    const res = await axios.get(`https://hadith-smoky.vercel.app/api/hadiths`, {
       params: {
         hadith_no,
       },

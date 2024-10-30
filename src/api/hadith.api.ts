@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://192.168.1.4:5000/api";
+const API_BASE_URL = "https://hadith-smoky.vercel.app/api";
 
 export const fetchHadiths = async (hadithNo: number) => {
   const response = await axios.get(`${API_BASE_URL}/hadiths`, {
