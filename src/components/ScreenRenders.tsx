@@ -61,10 +61,6 @@ export const ScreenRenderer: React.FC<ScreenRendererProps> = ({
     return <div>Invalid parameters for this screen</div>;
   }
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
   const renderScreen = () => {
     switch (screenState.name) {
       case "maqsads":
