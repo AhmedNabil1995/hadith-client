@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/hadith-client/static/css/main.d781b93e.css",
-    "main.js": "/hadith-client/static/js/main.c7767acd.js",
+    "main.js": "/hadith-client/static/js/main.9f530563.js",
     "static/js/223.2c36997f.chunk.js": "/hadith-client/static/js/223.2c36997f.chunk.js",
     "static/js/517.fcf16fa6.chunk.js": "/hadith-client/static/js/517.fcf16fa6.chunk.js",
     "static/js/229.0abde729.chunk.js": "/hadith-client/static/js/229.0abde729.chunk.js",
@@ -11,7 +11,7 @@
     "static/js/414.53982439.chunk.js": "/hadith-client/static/js/414.53982439.chunk.js",
     "index.html": "/hadith-client/index.html",
     "main.d781b93e.css.map": "/hadith-client/static/css/main.d781b93e.css.map",
-    "main.c7767acd.js.map": "/hadith-client/static/js/main.c7767acd.js.map",
+    "main.9f530563.js.map": "/hadith-client/static/js/main.9f530563.js.map",
     "223.2c36997f.chunk.js.map": "/hadith-client/static/js/223.2c36997f.chunk.js.map",
     "517.fcf16fa6.chunk.js.map": "/hadith-client/static/js/517.fcf16fa6.chunk.js.map",
     "229.0abde729.chunk.js.map": "/hadith-client/static/js/229.0abde729.chunk.js.map",
@@ -22,6 +22,6 @@
   },
   "entrypoints": [
     "static/css/main.d781b93e.css",
-    "static/js/main.c7767acd.js"
+    "static/js/main.9f530563.js"
   ]
 }
