@@ -11,7 +11,7 @@ interface HadithScreenProps {
   firstHadith: number | undefined;
 }
 
-const HadithScreen: React.FC<HadithScreenProps> = ({ firstHadith = 1 }) => {
+const HadithScreenV2: React.FC<HadithScreenProps> = ({ firstHadith = 1 }) => {
   const { hadiths, goToNextHadith, goToPrevHadith } = useHadiths(firstHadith);
 
   const takhreej = hadiths[hadiths.length - 1]?.takhreej;
@@ -28,14 +28,16 @@ const HadithScreen: React.FC<HadithScreenProps> = ({ firstHadith = 1 }) => {
         {hadiths.map((hadith, index) => (
           <HadithCard key={index} hadith={hadith} />
         ))}
-        <FootnotesSection footnotes={footnotes} takhreej={takhreej} />
+        {(footnotes.length > 0 || takhreej) && (
+          <FootnotesSection footnotes={footnotes} takhreej={takhreej} />
+        )}
       </div>
       <NavigationArrows onPrev={goToPrevHadith} onNext={goToNextHadith} />
     </div>
   );
 };
 
-export default HadithScreen;
+export default HadithScreenV2;
 
 // HadithCard.tsx
 const HadithCard: React.FC<{ hadith: any }> = ({ hadith }) => {
@@ -76,36 +78,30 @@ const HadithCard: React.FC<{ hadith: any }> = ({ hadith }) => {
 
 // FootnotesSection.tsx
 const FootnotesSection: React.FC<{ footnotes: any[]; takhreej: string }> = ({
-  footnotes,
-  takhreej,
+  footnotes = [],
+  takhreej = "",
 }) => {
   return (
-    (footnotes.length > 0 || takhreej) && (
-      <div className="bg-white rounded-lg shadow-lg p-6 mt-4  mb-4">
-        {footnotes.length > 0 && (
-          <h3 className="text-right font-bold text-lg mb-3 text-green-600">
-            الشرح والفوائد
-          </h3>
-        )}
-        {footnotes.map((footnote, i) => (
-          <div className="text-right text-gray-700">
-            <p key={i} className="mb-2" id={`ref${i}`}>
-              {`{[${i + 1}]}`} {footnote.footnotes}
-            </p>
-          </div>
-        ))}
-        {takhreej && (
-          <div
-            className={`${footnotes.length > 0 ? "mt-4 pt-4 border-t" : ""}`}
-          >
-            <h4 className="text-right font-bold mb-2 text-green-600">
-              التخريج
-            </h4>
-            <p className="text-right text-gray-700">{takhreej}</p>
-          </div>
-        )}
-      </div>
-    )
+    <div className="bg-white rounded-lg shadow-lg p-6 mt-4  mb-4">
+      {footnotes.length > 0 && (
+        <h3 className="text-right font-bold text-lg mb-3 text-green-600">
+          الشرح والفوائد
+        </h3>
+      )}
+      {footnotes.map((footnote, i) => (
+        <div className="text-right text-gray-700">
+          <p key={i} className="mb-2" id={`ref${i}`}>
+            {`{[${i + 1}]}`} {footnote.footnotes}
+          </p>
+        </div>
+      ))}
+      {takhreej && (
+        <div className={`${footnotes.length > 0 ? "mt-4 pt-4 border-t" : ""}`}>
+          <h4 className="text-right font-bold mb-2 text-green-600">التخريج</h4>
+          <p className="text-right text-gray-700">{takhreej}</p>
+        </div>
+      )}
+    </div>
   );
 };
 

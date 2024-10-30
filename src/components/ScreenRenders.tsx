@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ScreenI, ScreenName, ScreenParams } from "../types";
 import { MaqsadI } from "../interfaces/Maqsad";
 import ErrorBoundary from "./ErrorBoudary";
+import HadithScreenV2 from "./Hadithv2";
 
 // Lazy load all screen components
 const MaqsadScreen = React.lazy(() => import("../screens/Maqsad"));
@@ -39,13 +40,9 @@ const validateParams = (name: ScreenName, params: ScreenParams): boolean => {
     case "fasls":
       return typeof params.bookId === "number";
     case "categories":
-      return (
-        typeof params.faslId === "number" && typeof params.bookId === "number"
-      );
+      return typeof params.bookId === "number";
     case "hadiths":
       return (
-        typeof params.faslId === "number" &&
-        typeof params.bookId === "number" &&
         typeof params.categoryId === "number" &&
         typeof params.first_hadith_number === "number"
       );
@@ -93,7 +90,7 @@ export const ScreenRenderer: React.FC<ScreenRendererProps> = ({
         );
       case "hadiths":
         return (
-          <HadithScreen
+          <HadithScreenV2
             faslId={screenState.params.faslId!}
             bookId={screenState.params.bookId!}
             categoryId={screenState.params.categoryId!}
