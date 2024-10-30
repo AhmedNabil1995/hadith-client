@@ -1,5 +1,5 @@
 // components/ScreenRenderer.tsx
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ScreenI, ScreenName, ScreenParams } from "../types";
 import { MaqsadI } from "../interfaces/Maqsad";
@@ -60,6 +60,10 @@ export const ScreenRenderer: React.FC<ScreenRendererProps> = ({
     console.error("Invalid params for screen:", screenState.name);
     return <div>Invalid parameters for this screen</div>;
   }
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
   const renderScreen = () => {
     switch (screenState.name) {
