@@ -36,7 +36,7 @@ const App2 = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [screenState.name]);
+  });
 
   return (
     <UIProvider>
