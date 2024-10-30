@@ -34,6 +34,10 @@ const App2 = () => {
     return () => window.removeEventListener("popstate", handleBackButton);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [screenState.name]);
+
   return (
     <UIProvider>
       <div className="min-h-screen bg-gray-100">
